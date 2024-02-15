@@ -35,3 +35,6 @@ class KafkaPipeline:
             "news", json.dumps(ItemAdapter(item).asdict()).encode("utf-8")
         )
         return item
+
+    def close_spider(self, spider):
+        self.producer.close()
