@@ -7,6 +7,13 @@ def create_kafka_topic(
     replication_factor=1,
     broker={"bootstrap_servers": "localhost:9092"},
 ):
+    """
+    Creates topic if it doesn't exist
+    :param topic_name: The topic name
+    :param num_partitions: The number partitions
+    :param replication_factor: The replication factor
+    :param broker: The broker
+    """
     # Create KafkaAdminClient
     admin_client = KafkaAdminClient(**broker)
 

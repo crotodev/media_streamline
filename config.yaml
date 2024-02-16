@@ -1,0 +1,21 @@
+kafka:
+  bootstrap_servers: "localhost:9092"
+  topic: "news"
+  num_partitions: 1
+  replication_factor: 1
+
+spark:
+  kafka_package: "org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0"
+  cassandra_package: "com.datastax.spark:spark-cassandra-connector_2.12:3.3.0"
+
+cassandra:
+  username: ""
+  password: ""
+  keyspace: "news"
+  tablename: "news"
+  contact_points: ['localhost']
+  class: "SimpleStrategy"
+  replication_factor: 3
+
+inference_api:
+  url: "http://45.55.199.149:9000/api"

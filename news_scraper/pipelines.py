@@ -4,30 +4,22 @@
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
 import json
+import yaml
 
 import kafka
 
-from news_scraper.utils.kafka import create_kafka_topic
-
-# useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
+
+with open('config.yaml', 'r') as f:
+    config = yaml.load(f, yaml.Loader)
 
 
 class KafkaPipeline:
     producer = None
-    broker = {"bootstrap_servers": "localhost:9092"}
-    num_partitions = 1
-    replication_factor = 1
 
     def open_spider(self, spider):
-        create_kafka_topic(
-            "news",
-            num_partitions=self.num_partitions,
-            replication_factor=self.replication_factor,
-            broker=self.broker,
-        )
         self.producer = kafka.KafkaProducer(
-            bootstrap_servers=self.broker["bootstrap_servers"]
+            bootstrap_servers=config['kafka']["bootstrap_servers"]
         )
 
     def process_item(self, item, spider):
